@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Street View side-by-side</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map, #pano {
+        float: left;
+        height: 100%;
+        width: 45%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="pano"></div>
+    <script>
+
+      function initialize() {
+        var fenway = {lat: 42.345573, lng: -71.098326};
+        var locations = [
+
+
+
+
+
+
+
+
+
+            ['Bondi Beach', -27.46130852, 153.0357006	, 13],
+            ['Coogee Beach', -27.46197652, 153.0338907, 12],
+            ['Cronulla Beach', -27.460178, 153.037182	, 11],
+            ['Minor injury', -27.455988, 153.035563, 10],
+              ['Bondi Beach', -27.455988, 153.03164	, 9],
+              ['Coogee Beach', -27.460834, 153.038009, 8],
+              ['Cronulla Beach', -27.460834, 153.038009	, 7],
+              ['Minor injury', -27.455386, 153.035563, 6],
+               ['Bondi Beach', -27.455386, 153.035563, 4],
+               ['Coogee Beach', -27.46117251, 153.0356316, 5],
+               ['Cronulla Beach', -27.46202254, 153.0325147	, 3],
+              ['Minor injury', -27.46202254, 153.0325147, 2],
+              ['we are here.', -27.458349, 153.0343566, 1]
+
+            ];
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 16,
+              center: new google.maps.LatLng(-27.458349, 153.0343566),
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            for (i = 0; i < locations.length; i++) {
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map
+              });
+
+              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                  infowindow.setContent(locations[i][0]);
+                  infowindow.open(map, marker);
+
+
+                  var panorama = new google.maps.StreetViewPanorama(
+                      document.getElementById('pano'), {
+                        position: {lat: locations[i][1],lng: locations[i][2]},
+                        pov: {
+                          heading: 34,
+                          pitch: 10
+                        }
+                      });
+                  map.setStreetView(panorama);
+
+
+                }
+              })(marker, i));
+            }
+
+
+
+      }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEk1Fe87RZ1f00KFFFeXO4FOzwZYX4EII&callback=initialize">
+    </script>
+  </body>
+</html>
