@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+  <meta charset="utf-8">
     <title>Street View side-by-side</title>
     <style>
       html, body {
@@ -65,6 +70,12 @@
                 map: map
               });
 
+              var oReq = new XMLHttpRequest();
+//oReq.addEventListener("load", reqListener);
+oReq.open("GET", "http://www.example.org/example.txt");
+oReq.send();
+    
+//               XMLHttpRequest.open("GET", "https://traffic.cit.api.here.com/traffic/6.2/incidents.json?app_id=buJtrAGfgMK3FRA3mbF8%20&app_code=zhCdgK_a-xTKtfY-c9F9Lw&prox=-27.470125,153.021072,1000");
               google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                   infowindow.setContent(locations[i][0]);
@@ -87,6 +98,9 @@
             }
 
 
+
+  // Enable traffic incidents layer
+ // map.addLayer(defaultLayers.incidents);
 
       }
     </script>
